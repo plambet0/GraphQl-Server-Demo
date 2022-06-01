@@ -1,3 +1,3 @@
 const companyTypeDefs = require('./companies/companyTypedefs');
-
-module.exports = [companyTypeDefs];
+const companyTypeTypeDefs = require('./companyTypes/companyTypeTypedefs');
+module.exports = [companyTypeDefs, companyTypeTypeDefs];
