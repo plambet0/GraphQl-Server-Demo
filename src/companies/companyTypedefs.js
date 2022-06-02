@@ -5,6 +5,8 @@ module.exports = gql`
     id: ID!
     name: String!
     company_type: CompanyType
+    membership: Membership!
+    # market_activity: MarketActivity!
   }
 
   type Query {

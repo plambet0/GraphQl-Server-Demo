@@ -3,11 +3,12 @@ const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
 const db = require('./db');
+const buildDataLoaders = require('./db/dataLoader');
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context() {
-    return { ...db };
+    return { ...db, loaders: buildDataLoaders(db.models) };
   }
 });
 

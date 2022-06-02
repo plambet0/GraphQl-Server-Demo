@@ -9,6 +9,9 @@ const Companies = sequelize.define(
     },
     company_type_id: {
       type: Sequelize.INTEGER
+    },
+    membership_id: {
+      type: Sequelize.INTEGER
     }
   },
   {

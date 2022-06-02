@@ -8,8 +8,11 @@ module.exports = {
     }
   },
   Company: {
-    company_type({ company_type_id }) {
-      return { id: company_type_id, name: 'hard_coded_company_type_name' };
+    company_type({ company_type_id }, __, { loaders: { comppanyTypesLoader } }) {
+      return comppanyTypesLoader.load(company_type_id);
+    },
+    membership({ membership_id }, __, {loaders: { membershipsLoader}}){
+      return membershipsLoader.load(membership_id);
     }
   }
 };
