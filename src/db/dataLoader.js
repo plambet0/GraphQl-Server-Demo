@@ -23,11 +23,25 @@ async function batchMemberships(Memberships, keys) {
   return keys.map((key) => result[key] || new Error('No result for ${key}'));
 }
 
+async function batchMarketActivities(MarketActivities, keys) {
+  const values = await MarketActivities.findMany({
+    id: keys
+  });
+  let result = {};
+  values.forEach((ma) => {
+    result[ma.id] = { ...ma };
+  });
+  return keys.map((key) => result[key] || new Error('No result for ${key}'));
+}
+
 module.exports = (models) => ({
   comppanyTypesLoader: new DataLoader((keys) => batchCompanyTypes(models.CompanyTypes, keys), {
     cacheKeyFn: (key) => key.toString()
   }),
   membershipsLoader: new DataLoader((keys) => batchMemberships(models.Memberships, keys), {
     cacheKeyFn: (key) => key.toString()
+  }),
+  marketActivitiesLoader: new DataLoader((keys) => batchMarketActivities(models.MarketActivities, keys), {
+      cacheKeyFn: (key) => key.toString()
   })
 });

@@ -11,8 +11,11 @@ module.exports = {
     company_type({ company_type_id }, __, { loaders: { comppanyTypesLoader } }) {
       return comppanyTypesLoader.load(company_type_id);
     },
-    membership({ membership_id }, __, {loaders: { membershipsLoader}}){
+    membership({ membership_id }, __, { loaders: { membershipsLoader } }) {
       return membershipsLoader.load(membership_id);
+    },
+    market_activity({ market_activity_id }, __, { loaders: { marketActivitiesLoader } }) {
+      return marketActivitiesLoader.load(market_activity_id);
     }
   }
 };
