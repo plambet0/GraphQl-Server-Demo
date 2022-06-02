@@ -27,7 +27,7 @@ const createModel = (table) => ({
     return result;
   },
   async findOne(filter) {
-    // NO COMPANY have id = 0
+    // NO COMPANY have id = 0 
     if (!filter && filter !== 0) {
       throw new Error(`Missing filter in findOne`);
     }
