@@ -28,6 +28,27 @@ module.exports = {
         ...input
       });
       return companyDto;
+    },
+    async updateCompany(_, { id, input }, { models }) {
+      const companyToUpdate = await models.Companies.findOne(id);
+      if (!companyToUpdate) {
+        throw new Error(`company with id ${id} not found`);
+      }
+      await validateCompanyType(input.company_type_id, models);
+      await validateMarketActivity(input.market_activity_id, models);
+      await validateCompany(input.name, models);
+      const company = { ...companyToUpdate, ...input };
+      await models.Companies.update(company, { id });
+      return company;
+    },
+    async deleteCompany(_, { id }, { models }) {
+      const companyToDelete = await models.Companies.findOne(id);
+      if (!companyToDelete) {
+        throw new Error(`there is no such company with id ${id} in the database`);
+      } else {
+        await models.Companies.delete({ id });
+        return true;
+      }
     }
   }
 };

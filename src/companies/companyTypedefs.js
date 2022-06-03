@@ -20,10 +20,13 @@ module.exports = gql`
     is_main_member: Boolean!
   }
 
-  type MutationResult {
-    success: Boolean!
-    errors: [String]
-    company: Company
+  input UpdateCompanyInput {
+    name: String!
+    company_type_id: Int!
+    market_activity_id: Int!
+    membership_id: Int!
+    member_index: Boolean!
+    is_main_member: Boolean!
   }
 
   type Query {
@@ -33,5 +36,7 @@ module.exports = gql`
 
   type Mutation {
     addCompany(input: AddCompanyInput!): Company!
+    updateCompany(id: Int!, input: UpdateCompanyInput!): Company!
+    deleteCompany(id: Int!): Boolean!
   }
 `;
