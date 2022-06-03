@@ -17,5 +17,46 @@ module.exports = {
     market_activity({ market_activity_id }, __, { loaders: { marketActivitiesLoader } }) {
       return marketActivitiesLoader.load(market_activity_id);
     }
+  },
+  Mutation: {
+    async addCompany(_, { input }, { models }) {
+      await validateMembership(input.membership_id, models);
+      await validateCompanyType(input.company_type_id, models);
+      await validateMarketActivity(input.market_activity_id, models);
+      await validateCompany(input.name, models);
+      const companyDto = await models.Companies.create({
+        ...input
+      });
+      return companyDto;
+    }
+  }
+};
+
+const validateCompanyType = async (id, models) => {
+  const companyType = await models.CompanyTypes.findOne({ id });
+  if (!companyType) {
+    throw new Error(`market activity with id ${id} not found`);
+  }
+};
+
+const validateMarketActivity = async (id, models) => {
+  const mktActivity = await models.MarketActivities.findOne({ id });
+  if (!mktActivity) {
+    throw new Error(`market activity with id ${id} not found`);
+  }
+};
+
+const validateMembership = async (id, models) => {
+  const dbMembership = await models.Memberships.findOne({ id });
+  if (!dbMembership) {
+    throw new Error(`membership with id ${id} not found`);
+  }
+};
+
+const validateCompany = async (name, models) => {
+  const trimmedCompanyName = name.trim();
+  const company = await models.Companies.findOneCaseInsensitive('name', trimmedCompanyName);
+  if (company) {
+    throw new Error(`company name: ${name} exist`);
   }
 };

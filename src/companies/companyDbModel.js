@@ -15,6 +15,12 @@ const Companies = sequelize.define(
     },
     market_activity_id: {
       type: Sequelize.INTEGER
+    },
+    is_main_member: {
+      type: Sequelize.BOOLEAN
+    },
+    member_index: {
+      type: Sequelize.BOOLEAN
     }
   },
   {
