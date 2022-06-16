@@ -9,4 +9,5 @@ module.exports = gql`
   extend type Query {
     companyTypes: [CompanyType]!
   }
+
 `;

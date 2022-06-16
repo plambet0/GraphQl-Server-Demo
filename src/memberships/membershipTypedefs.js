@@ -8,6 +8,5 @@ module.exports = gql`
 
   extend type Query {
     memberships: [Membership]!
-    membership(id: Int!): Membership
   }
 `;

@@ -1,7 +1,7 @@
 module.exports = {
   Query: {
     async companies(_, __, { models }) {
-      return await models.Companies.findMany();
+      return await models.Companies.findMany(null, null, ['id', 'DESC']);
     },
     company(_, { id }, { models }) {
       return models.Companies.findOne({ id });
@@ -56,7 +56,7 @@ module.exports = {
 const validateCompanyType = async (id, models) => {
   const companyType = await models.CompanyTypes.findOne({ id });
   if (!companyType) {
-    throw new Error(`market activity with id ${id} not found`);
+    throw new Error(`company type with id ${id} not found`);
   }
 };
 
