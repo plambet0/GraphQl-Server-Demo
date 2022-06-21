@@ -36,7 +36,6 @@ module.exports = {
       }
       await validateCompanyType(input.company_type_id, models);
       await validateMarketActivity(input.market_activity_id, models);
-      await validateCompany(input.name, models);
       const company = { ...companyToUpdate, ...input };
       await models.Companies.update(company, { id });
       return company;
